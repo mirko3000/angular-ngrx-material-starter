@@ -31,9 +31,9 @@
   "anms.features.typescript": "Superior developer experience, code completion, refactoring and less bugs",
   "anms.footer.changelog": "Show changelog",
   "anms.header.github": "Project Github Repository",
-  "anms.menu.about": "About",
-  "anms.menu.examples": "Examples",
-  "anms.menu.features": "Features",
+  "anms.menu.about": "Home",
+  "anms.menu.examples": "Brew",
+  "anms.menu.features": "Grind",
   "anms.menu.login": "Sign in",
   "anms.menu.logout": "Logout",
   "anms.menu.settings": "Settings",
@@ -60,6 +60,6 @@
   "anms.settings.themes.sticky-header": "Sticky header",
   "anms.settings.themes.title": "Themes",
   "anms.settings.title": "Settings",
-  "anms.title.long": "Angular NgRx Material Starter",
-  "anms.title.short": "Angular Starter"
+  "anms.title.long": "BrewMaster",
+  "anms.title.short": "BrewMaster"
 }

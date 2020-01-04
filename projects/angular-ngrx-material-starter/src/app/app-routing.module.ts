@@ -13,21 +13,14 @@ const routes: Routes = [
       import('./features/about/about.module').then(m => m.AboutModule)
   },
   {
-    path: 'feature-list',
+    path: 'beans',
     loadChildren: () =>
-      import('./features/feature-list/feature-list.module').then(
-        m => m.FeatureListModule
-      )
+      import('./features/beans/beans.module').then(m => m.BeansModule)
   },
   {
-    path: 'settings',
+    path: 'grind',
     loadChildren: () =>
-      import('./features/settings/settings.module').then(m => m.SettingsModule)
-  },
-  {
-    path: 'examples',
-    loadChildren: () =>
-      import('./features/examples/examples.module').then(m => m.ExamplesModule)
+      import('./features/grind/grind.module').then(m => m.GrindModule)
   },
   {
     path: '**',

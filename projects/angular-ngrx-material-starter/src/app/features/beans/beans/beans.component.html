@@ -1,0 +1,102 @@
+<div class="container" rtl>
+  <h1>{{ 'anms.examples.crud.title' | translate }}</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>{{ 'anms.examples.crud.subtitle1' | translate }}</h2>
+      <mat-card *ngFor="let bean of beans$ | async" [ngClass]="routeAnimationsElements"
+        (click)=select(bean)>
+        <h3>{{bean.title}}</h3>
+        <small>{{bean.author}}</small>
+      </mat-card>
+      <p *ngIf="(beans$ | async)?.length === 0">{{'anms.examples.crud.empty' | translate}}</p>
+      <button type="button" mat-fab color="primary" class="add" [ngClass]="routeAnimationsElements"
+        *ngIf="!isEditing" (click)="addNew(beanForm)">
+        <fa-icon icon="plus"></fa-icon>
+      </button>
+    </div>
+    <div class="col-md-6">
+      <span class="d-flex justify-content-between">
+        <h2>{{ 'anms.examples.crud.subtitle2' | translate }}</h2>
+        <span class="d-flex justify-content-end">
+          <span *ngIf="selectedBean$ | async as selectedBean">
+            <button mat-icon-button color="accent" *ngIf="!isEditing">
+              <fa-icon icon="edit" (click)="edit(selectedBean)" [matTooltip]="'anms.examples.crud.tooltip.edit' | translate"
+                matTooltipPosition="above">
+              </fa-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="delete(selectedBean)">
+              <fa-icon icon="trash" [matTooltip]="'anms.examples.crud.tooltip.delete' | translate"
+                matTooltipPosition="above">
+              </fa-icon>
+            </button>
+            <button mat-icon-button (click)="deselect()">
+              <fa-icon icon="times" [matTooltip]="'anms.examples.crud.tooltip.deselect' | translate"
+                matTooltipPosition="above">
+              </fa-icon>
+            </button>
+          </span>
+        </span>
+      </span>
+
+      <form #beanForm="ngForm" [formGroup]="beanFormGroup" [style.display]="isEditing ? 'block' : 'none'"
+        [ngClass]="routeAnimationsElements">
+        <div class="row">
+          <mat-form-field class="col">
+            <input matInput placeholder="{{ 'anms.examples.crud.placeholder1' | translate }}"
+              formControlName="title" required autofocus>
+            <mat-error *ngIf="beanFormGroup.get('title').invalid">
+              {{ 'anms.examples.crud.placeholder1' | translate }}
+              {{ 'anms.examples.crud.error' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col">
+            <input matInput placeholder="{{ 'anms.examples.crud.placeholder2' | translate }}"
+              formControlName="author" required>
+            <mat-error *ngIf="beanFormGroup.get('author').hasError('required')">
+              {{ 'anms.examples.crud.placeholder2' | translate }}
+              {{ 'anms.examples.crud.error' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col">
+            <textarea matInput placeholder="{{ 'anms.examples.crud.placeholder3' | translate }}"
+              formControlName="description" rows="5"></textarea>
+            <mat-error *ngIf="beanFormGroup.get('description').invalid">
+              {{ 'anms.examples.crud.placeholder1' | translate }}
+              {{ 'anms.examples.crud.error' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between">
+            <button (click)="save()" mat-raised-button color="primary">
+              {{'anms.examples.crud.save' | translate }}
+            </button>
+            <button (click)="cancelEditing()" mat-raised-button>
+              {{'anms.examples.crud.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <ng-container *ngIf="!isEditing">
+        <div [ngClass]="routeAnimationsElements" *ngIf="selectedBean$ | async as selectedBean; else noSelectedBeanTmpl">
+          <h3>{{ selectedBean.title }}</h3>
+          <mat-divider></mat-divider>
+          <p>{{ selectedBean.description }}</p>
+          <i>{{ selectedBean.author }}</i>
+        </div>
+
+        <ng-template #noSelectedBeanTmpl>
+          <p [ngClass]="routeAnimationsElements">
+            {{'anms.examples.crud.text' | translate }} <code>@ngrx/entity</code>.
+          </p>
+        </ng-template>
+      </ng-container>
+
+    </div>
+  </div>
+</div>
