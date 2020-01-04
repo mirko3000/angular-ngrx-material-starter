@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const compression = require('compression');
 
-const CONTEXT = `/${process.env.CONTEXT || 'angular-ngrx-material-starter'}`;
+const CONTEXT = `/${process.env.CONTEXT || 'brew-frontend'}`;
 const PORT = process.env.PORT || 4000;
 
 const app = express();
@@ -11,13 +11,13 @@ app.use(compression());
 app.use(
   CONTEXT,
   express.static(
-    path.resolve(__dirname, '../../dist/angular-ngrx-material-starter')
+    path.resolve(__dirname, '../../dist/brew-frontend')
   )
 );
 app.use(
   '/',
   express.static(
-    path.resolve(__dirname, '../../dist/angular-ngrx-material-starter')
+    path.resolve(__dirname, '../../dist/brew-frontend')
   )
 );
 app.listen(PORT, () =>
