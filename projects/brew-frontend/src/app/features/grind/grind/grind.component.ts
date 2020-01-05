@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, NgModule, ChangeDetectionStrategy } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
 
@@ -20,7 +20,7 @@ import { ChartsModule } from 'ng2-charts';
   selector: 'anms-grind',
   templateUrl: './grind.component.html',
   styleUrls: ['./grind.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class GrindComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
@@ -66,9 +66,9 @@ export class GrindComponent implements OnInit {
     private router: Router
   ) {}
 
+
   ngOnInit() {
     this.socketService.initSocket();
-
     this.ioConnection = this.socketService
       .onMessage()
       .subscribe((message: WeightData) => {
@@ -204,5 +204,9 @@ export class GrindComponent implements OnInit {
 
     this.brewService.setGrind(grind);
     this.router.navigate(['/brew']);
+  }
+
+  test() {
+    console.log(this.weight);
   }
 }

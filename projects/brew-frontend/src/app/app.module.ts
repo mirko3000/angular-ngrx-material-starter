@@ -14,6 +14,8 @@ import { SocketService } from './services/socket.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   imports: [
     // angular
@@ -25,7 +27,10 @@ import { AppComponent } from './app/app.component';
     SharedModule,
 
     // app
-    AppRoutingModule
+    AppRoutingModule,
+
+    // charts
+    ChartsModule
   ],
   providers: [BeansService, BrewService, WeightService, SocketService],
   declarations: [AppComponent],

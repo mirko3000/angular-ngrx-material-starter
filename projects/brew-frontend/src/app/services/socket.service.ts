@@ -22,7 +22,6 @@ export class SocketService {
   }
 
   public onMessage(): Observable<WeightData> {
-    console.log('New Message');
     return new Observable<WeightData>(observer => {
       this.socket.on('grind-weight', (data: WeightData) => {
         observer.next(data);
@@ -34,9 +33,10 @@ export class SocketService {
   }
 
   public onEvent(event: Event): Observable<any> {
-    console.log('New Event');
     return new Observable<Event>(observer => {
-      this.socket.on(event, () => observer.next());
+      this.socket.on(event, () => {
+        observer.next()
+      });
     });
   }
 }

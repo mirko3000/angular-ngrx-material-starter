@@ -5,9 +5,9 @@
         <mat-card-title>
           Weigth
         </mat-card-title>
-        <mat-card-subtitle>
-          Brew Weigth
-        </mat-card-subtitle>
+        <div class="large-text">
+          {{weight}} g
+        </div>
         <mat-card-actions>
           <a mat-button href="www.google.de" target="_blank">
             <fa-icon icon="book"></fa-icon>
@@ -18,11 +18,11 @@
     <div class="col-md-6 col-lg-4" [ngClass]="routeAnimationsElements">
       <mat-card>
         <mat-card-title>
-          Weigth
+          Time
         </mat-card-title>
-        <mat-card-subtitle>
-          Brew Weigth
-        </mat-card-subtitle>
+        <div class="large-text">
+          {{seconds}}:{{milliseconds}}
+        </div>
         <mat-card-actions>
           <a mat-button href="www.google.de" target="_blank">
             <fa-icon icon="book"></fa-icon>
@@ -33,7 +33,7 @@
     <div class="col-md-6 col-lg-4" [ngClass]="routeAnimationsElements">
       <mat-card>
         <mat-card-title>
-          Weigth
+          Ratio
         </mat-card-title>
         <div class="large-text">
           {{weight}} g
@@ -48,12 +48,19 @@
     <div class="col-md-12 col-lg-12" [ngClass]="routeAnimationsElements">
       <mat-card>
         <mat-card-title>
-          Weigth
+          Chart
         </mat-card-title>
-        <mat-card-subtitle>
-          Brew Weigth
-        </mat-card-subtitle>
+        <canvas baseChart height="80%"
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          (click)="tare()">
+        </canvas>
       </mat-card>
     </div>
+    <button mat-button (click)="test()">Click me!</button>
+
   </div>
 </div>

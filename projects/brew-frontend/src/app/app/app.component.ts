@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 
 import { environment as env } from '../../environments/environment';
 
+import { SocketService } from '../services/socket.service';
+import { WeightService } from '../services/weight.service';
+import { BrewService } from '../services/brew.service';
+
+import { ChartsModule } from 'ng2-charts';
+
 import {
   authLogin,
   authLogout,
