@@ -27,9 +27,11 @@ export class GrindComponent implements OnInit {
   features: Feature[] = features;
 
   weight;
+  weightRaw;
   isLoading = false;
   isEditing = false;
   ioConnection: any;
+  ratio = "0";
 
   timestampStart;
   timestampEnd;
@@ -45,10 +47,14 @@ export class GrindComponent implements OnInit {
   weightData = [];
 
   counter: number = 0;
+  intervalDuration: number = 0;
   timerRef;
   running: boolean = false;
   seconds: string = '00';
   milliseconds: string = '00';
+
+  weightLock: boolean = false;
+  timeLock: boolean = false;
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -73,47 +79,50 @@ export class GrindComponent implements OnInit {
       .onMessage()
       .subscribe((message: WeightData) => {
         if (message.weigth === 'GrindWeight') {
-          this.weight = (
-            Math.round(parseFloat(message.data) * 100) / 100
-          ).toFixed(1);
+          if (!this.weightLock) {
+            this.weightRaw = parseFloat(message.data);
+            this.weight = (
+              Math.round(this.weightRaw * 100) / 100
+            ).toFixed(1);
 
-          //Only do after second measure
-          if (this.lastWeigth) {
-            this.increase = this.weight - this.lastWeigth;
-            //console.log(this.weight + "g (" + this.increase.toFixed(2) + ") - " + this.rampUp);
+            //Only do after second measure
+            if (this.lastWeigth) {
+              this.increase = this.weight - this.lastWeigth;
+              //console.log(this.weight + "g (" + this.increase.toFixed(2) + ") - " + this.rampUp);
 
-            // Check if rampUp is finished (increase is less than average increase)
-            if (this.rampUp && this.increase < this.tolerance) {
-              this.timestampEnd = new Date();
-              this.rampUp = false;
-              //console.log("Rampup finished, increase by " + this.increase);
-              //console.log("Duration: " + (this.timestampEnd - this.timestampStart));
-              this.clearTimer();
+              // Check if rampUp is finished (increase is less than average increase)
+              if (this.rampUp && this.increase < this.tolerance) {
+                this.timestampEnd = new Date();
+                this.rampUp = false;
+                //console.log("Rampup finished, increase by " + this.increase);
+                //console.log("Duration: " + (this.timestampEnd - this.timestampStart));
+                this.clearTimer();
+              }
+
+              // Check if we have a rampUp
+              if (
+                !this.rampUp &&
+                this.increase >= this.tolerance &&
+                this.increase < this.maxIncrease
+              ) {
+                this.timestampStart = new Date();
+                this.rampUp = true;
+                //console.log("Rampup identified, increase by " + this.increase);
+                this.startTimer();
+              }
+              this.lastIncrease = this.increase;
             }
 
-            // Check if we have a rampUp
-            if (
-              !this.rampUp &&
-              this.increase >= this.tolerance &&
-              this.increase < this.maxIncrease
-            ) {
-              this.timestampStart = new Date();
-              this.rampUp = true;
-              //console.log("Rampup identified, increase by " + this.increase);
-              this.startTimer();
-            }
-            this.lastIncrease = this.increase;
+            // Store as last weigth
+            this.lastWeigth = this.weight;
+
+            // Add to Chart
+            this.barChartLabels.push(new Date().getSeconds().toString());
+            if (this.barChartLabels.length > 30) this.barChartLabels.shift();
+            this.barChartData[0].data.push(this.weight);
+            if (this.barChartData[0].data.length > 30)
+              this.barChartData[0].data.shift();
           }
-
-          // Store as last weigth
-          this.lastWeigth = this.weight;
-
-          // Add to Chart
-          this.barChartLabels.push(new Date().getSeconds().toString());
-          if (this.barChartLabels.length > 30) this.barChartLabels.shift();
-          this.barChartData[0].data.push(this.weight);
-          if (this.barChartData[0].data.length > 30)
-            this.barChartData[0].data.shift();
         }
       });
 
@@ -132,17 +141,22 @@ export class GrindComponent implements OnInit {
   }
 
   startTimer() {
-    this.running = !this.running;
-    this.counter = 0;
-    this.formatCounter(0);
-    if (this.running) {
-      const startTime = Date.now() - (this.counter || 0);
-      this.timerRef = setInterval(() => {
-        this.counter = Date.now() - startTime;
-        this.formatCounter(this.counter);
-      }, 20);
-    } else {
-      clearInterval(this.timerRef);
+    if (!this.timeLock) {
+      this.running = !this.running;
+      this.counter = 0;
+      this.formatCounter(0);
+      if (this.running) {
+        const startTime = Date.now() - (this.counter || 0);
+        this.timerRef = setInterval(() => {
+          this.counter = Date.now() - startTime;
+          this.formatCounter(this.counter);
+          //Calculate ratio
+          this.ratio = (this.weightRaw / (this.counter/1000)).toFixed(2);
+          console.log(this.weightRaw + " - " + (this.counter) + " - " + this.ratio);
+        }, 20);
+      } else {
+        clearInterval(this.timerRef);
+      }
     }
   }
 
@@ -166,6 +180,15 @@ export class GrindComponent implements OnInit {
     } else {
       this.milliseconds = this.milliseconds.substring(0, 2);
     }
+    //console.log("Format: " + count + " --> " + this.seconds + ":" + this.milliseconds);
+  }
+
+  toggleWeightLock() {
+    this.weightLock = !this.weightLock;
+  }
+
+  toggleTimeLock() {
+    this.timeLock = !this.timeLock;
   }
 
   tare() {
@@ -204,9 +227,5 @@ export class GrindComponent implements OnInit {
 
     this.brewService.setGrind(grind);
     this.router.navigate(['/brew']);
-  }
-
-  test() {
-    console.log(this.weight);
   }
 }

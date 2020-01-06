@@ -9,9 +9,9 @@
           {{weight}} g
         </div>
         <mat-card-actions>
-          <a mat-button href="www.google.de" target="_blank">
-            <fa-icon icon="book"></fa-icon>
-          </a>
+          <button mat-button (click)="toggleWeightLock()">
+            <fa-icon icon="lock" [ngClass]="{'active': weightLock}"></fa-icon>
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -24,9 +24,9 @@
           {{seconds}}:{{milliseconds}}
         </div>
         <mat-card-actions>
-          <a mat-button href="www.google.de" target="_blank">
-            <fa-icon icon="book"></fa-icon>
-          </a>
+          <button mat-button (click)="toggleTimeLock()">
+            <fa-icon icon="lock"  [ngClass]="{'active': timeLock}"></fa-icon>
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -36,12 +36,12 @@
           Ratio
         </mat-card-title>
         <div class="large-text">
-          {{weight}} g
+          {{ratio}}
         </div>
         <mat-card-actions>
-          <a mat-button href="www.google.de" target="_blank">
-            <fa-icon icon="book"></fa-icon>
-          </a>
+          <button mat-button>
+            <fa-icon icon="lock"  [ngClass]="{'active': timeLock || weightLock}"></fa-icon>
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -60,7 +60,7 @@
         </canvas>
       </mat-card>
     </div>
-    <button mat-button (click)="test()">Click me!</button>
+    <button mat-button (click)="tare()">Click me!</button>
 
   </div>
 </div>
