@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule, ChangeDetectionStrategy } from '@angular/c
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
 
-import { Feature, features } from '../grind.data';
+import { Feature, features } from '../brew.data';
 
 import { SocketService } from '../../../services/socket.service';
 import { WeightService } from '../../../services/weight.service';
@@ -17,12 +17,12 @@ import { Router } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'bm-grind',
-  templateUrl: './grind.component.html',
-  styleUrls: ['./grind.component.scss'],
+  selector: 'bm-brew',
+  templateUrl: './brew.component.html',
+  styleUrls: ['./brew.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class GrindComponent implements OnInit {
+export class BrewComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   features: Feature[] = features;
 
@@ -78,7 +78,7 @@ export class GrindComponent implements OnInit {
     this.ioConnection = this.socketService
       .onMessage()
       .subscribe((message: WeightData) => {
-        if (message.weigth === 'GrindWeight') {
+        if (message.weigth === 'BrewWeight') {
           if (!this.weightLock) {
             this.weightRaw = parseFloat(message.data);
             this.weight = (

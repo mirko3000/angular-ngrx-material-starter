@@ -13,7 +13,7 @@
       },
       "root": "projects/brew-frontend",
       "sourceRoot": "projects/brew-frontend/src",
-      "prefix": "anms",
+      "prefix": "bm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

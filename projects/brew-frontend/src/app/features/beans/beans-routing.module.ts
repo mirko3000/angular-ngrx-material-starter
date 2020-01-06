@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: BeansComponent,
-    data: { title: 'anms.menu.about' }
+    data: { title: 'bm.menu.beans' }
   }
 ];
 

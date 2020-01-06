@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GrindComponent } from './grind/grind.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: GrindComponent,
-    data: { title: 'bm.menu.grind' }
+    component: HomeComponent,
+    data: { title: 'bm.menu.home' }
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GrindRoutingModule {}
+export class HomeRoutingModule {}

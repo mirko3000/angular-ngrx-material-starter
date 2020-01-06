@@ -29,7 +29,7 @@ export class BrewService {
     let c = new Coffee();
     c.beanId = this.beans.id;
     c.brewDate = moment().format();
-    c.grindWeight = parseFloat(this.grind.weigth);
+    c.grindWeight = parseFloat(this.grind.weight);
     c.grindTime = this.grind.milliseconds;
     c.brewQuantity = parseFloat(this.brew.quantity);
     c.brewTime = this.brew.milliseconds;
@@ -68,7 +68,7 @@ export class BrewService {
 
   getGrind() {
     if (this.grindSet) {
-      return this.grind.weigth + 'g (' + this.grind.milliseconds + 'ms)';
+      return this.grind.weight + 'g (' + this.grind.milliseconds + 'ms)';
     }
     return '<empty>';
   }

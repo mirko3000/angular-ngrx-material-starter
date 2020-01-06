@@ -16,33 +16,33 @@
 @import 'styles-reset.scss-theme';
 @import './app/app/app.component.scss-theme';
 @import './app/shared/big-input/big-input/big-input.component.scss-theme';
-@import './app/features/about/about/about.component.scss-theme';
+@import './app/features/home/home/home.component.scss-theme';
 @import './app/features/examples/notifications/components/notifications.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
-  @include anms-styles-reset-theme($theme);
-  @include anms-app-component-theme($theme);
-  @include anms-about-component-theme($theme);
-  @include anms-big-input-component-theme($theme);
-  @include anms-notifications-component-theme($theme);
+  @include bm-styles-reset-theme($theme);
+  @include bm-app-component-theme($theme);
+  @include bm-home-component-theme($theme);
+  @include bm-big-input-component-theme($theme);
+  @include bm-notifications-component-theme($theme);
 }
 
 .default-theme {
-  @include angular-material-theme($anms-theme);
-  @include custom-components-theme($anms-theme);
+  @include angular-material-theme($bm-theme);
+  @include custom-components-theme($bm-theme);
 }
 
 .light-theme {
-  @include angular-material-theme($anms-light-theme);
-  @include custom-components-theme($anms-light-theme);
+  @include angular-material-theme($bm-light-theme);
+  @include custom-components-theme($bm-light-theme);
 }
 
 .black-theme {
-  @include angular-material-theme($anms-black-theme);
-  @include custom-components-theme($anms-black-theme);
+  @include angular-material-theme($bm-black-theme);
+  @include custom-components-theme($bm-black-theme);
 }
 
 .nature-theme {
-  @include angular-material-theme($anms-nature-theme);
-  @include custom-components-theme($anms-nature-theme);
+  @include angular-material-theme($bm-nature-theme);
+  @include custom-components-theme($bm-nature-theme);
 }

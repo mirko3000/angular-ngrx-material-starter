@@ -13,7 +13,7 @@ import { actionBeansDeleteOne, actionBeansUpsertOne } from '../beans.actions';
 import { selectSelectedBean, selectAllBeans } from '../beans.selectors';
 
 @Component({
-  selector: 'anms-beans',
+  selector: 'bm-beans',
   templateUrl: './beans.component.html',
   styleUrls: ['./beans.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

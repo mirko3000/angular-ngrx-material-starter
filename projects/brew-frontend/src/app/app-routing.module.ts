@@ -4,13 +4,13 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'about',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
-    path: 'about',
+    path: 'home',
     loadChildren: () =>
-      import('./features/about/about.module').then(m => m.AboutModule)
+      import('./features/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'beans',
@@ -23,8 +23,13 @@ const routes: Routes = [
       import('./features/grind/grind.module').then(m => m.GrindModule)
   },
   {
+    path: 'brew',
+    loadChildren: () =>
+      import('./features/brew/brew.module').then(m => m.BrewModule)
+  },
+  {
     path: '**',
-    redirectTo: 'about'
+    redirectTo: 'home'
   }
 ];
 

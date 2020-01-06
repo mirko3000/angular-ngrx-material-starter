@@ -28,7 +28,7 @@ import {
 } from '../core/settings/settings.actions';
 
 @Component({
-  selector: 'anms-root',
+  selector: 'bm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [routeAnimations]
@@ -39,16 +39,16 @@ export class AppComponent implements OnInit {
   version = env.versions.app;
   year = new Date().getFullYear();
   logo = require('../../assets/logo.png');
-  languages = ['en', 'de', 'sk', 'fr', 'es', 'pt-br', 'zh-cn', 'he'];
+  languages = ['en', 'de'];
   navigation = [
-    { link: 'about', label: 'anms.menu.about' },
-    { link: 'grind', label: 'anms.menu.features' },
-    { link: 'beans', label: 'anms.menu.examples' },
-    { link: 'examples', label: 'anms.menu.crud' }
+    { link: 'about', label: 'bm.menu.home' },
+    { link: 'grind', label: 'bm.menu.grind' },
+    { link: 'brew', label: 'bm.menu.brew' },
+    { link: 'beans', label: 'bm.menu.beans' }
   ];
   navigationSideMenu = [
     ...this.navigation,
-    { link: 'settings', label: 'anms.menu.settings' }
+    { link: 'settings', label: 'bm.menu.settings' }
   ];
 
   isAuthenticated$: Observable<boolean>;
